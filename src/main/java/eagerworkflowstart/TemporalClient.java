@@ -64,11 +64,6 @@ public class TemporalClient {
   }
 
   public static WorkflowClient get() throws FileNotFoundException, SSLException {
-    // TODO support local server
-    // Get worker to poll the common task queue.
-    // gRPC stubs wrapper that talks to the local docker instance of temporal service.
-    // WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
-
     WorkflowServiceStubs service = getWorkflowServiceStubs();
 
     WorkflowClientOptions.Builder builder = WorkflowClientOptions.newBuilder();
@@ -84,10 +79,6 @@ public class TemporalClient {
   }
 
   public static ScheduleClient getScheduleClient() throws FileNotFoundException, SSLException {
-    // TODO support local server
-    // Get worker to poll the common task queue.
-    // gRPC stubs wrapper that talks to the local docker instance of temporal service.
-    // WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
 
     WorkflowServiceStubs service = getWorkflowServiceStubs();
 

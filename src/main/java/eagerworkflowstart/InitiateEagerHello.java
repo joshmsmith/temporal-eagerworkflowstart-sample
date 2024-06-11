@@ -49,16 +49,6 @@ import io.temporal.worker.WorkerFactory;
  */
 public class InitiateEagerHello {
 
- 
-
-  //todo
-    // [x] make money transfer workflow just do slow stuff and be called that
-  // [x] have the non-eager hello initator do hello, then slow stuff
-  // [x] make the helloeagerstart.java not have the workflow in it, and call the fast workflow, then the slow one
-// [x] fix gradle initiators in build.gradle
-// [x] test locally
-// [ ] connect to cloud
-// [ ] test, do some speed tests
   public static void main(String[] args) throws FileNotFoundException, SSLException{
     
     // gRPC stubs wrapper that talks to the local instance of temporal
