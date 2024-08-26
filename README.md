@@ -7,7 +7,7 @@ There is also a sample of a workflow continuing the process that is less time-se
 
 
 ## Run the Workflow
-First, make sure the [Temporal server](https://docs.temporal.io/docs/server/quick-install) is running, or connect to cloud by configuring .envrc.
+First, make sure the [Temporal server](https://docs.temporal.io/docs/server/quick-install) is running, or connect to cloud by configuring .envrc. See .envrc.example for a sample.
 
 
 Second, start the Worker, from the project root run:
