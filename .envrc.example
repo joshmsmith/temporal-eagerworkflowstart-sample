@@ -10,21 +10,14 @@ export TEMPORAL_NAMESPACE=testnamespace.sdvdw
 export USE_TLS=true
 #export USE_TLS=false
 
-# tclient-myns client cert
-
-#export TEMPORAL_HOST_URL="localhost:7233"
-#export TEMPORAL_NAMESPACE="default"
-export TEMPORAL_ADDRESS=testnamespace.sdvdw.tmprl.cloud:7233
-export TEMPORAL_NAMESPACE=testnamespace.sdvdw
-
 # If self-hosted, skip TLS certs
 export USE_TLS=true
 #export USE_TLS=false
 
 # tclient-myns client cert
 
-export TEMPORAL_TLS_CERT="/Users/myuser/.temporal/tclient-myns.pem"
-export TEMPORAL_TLS_KEY="/Users/myuser/.temporal/tclient-myns.key"
+export TEMPORAL_CERT_PATH="/Users/myuser/.temporal/tclient-myns.pem"
+export TEMPORAL_KEY_PATH=="/Users/myuser/.temporal/tclient-myns.key"
 
 # Optional: path to root server CA cert
 export TEMPORAL_SERVER_ROOT_CA_CERT=
