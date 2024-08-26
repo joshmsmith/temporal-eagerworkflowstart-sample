@@ -20,8 +20,7 @@ To start the Workflow in eager mode, from the project root run:
 ```
 $ ./gradlew initiateEagerHello
 <snip>
-Hello Jerry!
-Eager runtime:266 milliseconds
+Average Eager runtime:135 milliseconds
 <snip>
 ```
 
@@ -29,8 +28,7 @@ For comparison, start the workflow in non eager mode. From the project root run:
 ```
 $ ./gradlew initiateNonEagerHello
 <snip>
-Hello Dave!
-Non Eager runtime:938 milliseconds
+Non Eager Average runtime:141 milliseconds
 <snip>
 ```
 
