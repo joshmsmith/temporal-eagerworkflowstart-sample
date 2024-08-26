@@ -59,7 +59,7 @@ public class InitiateEagerHello {
     WorkerFactory factory = WorkerFactory.newInstance(client);
     // Worker that listens on a task queue and hosts both workflow and activity
     // implementations.
-    Worker worker = factory.newWorker(Shared.HELLO_TASK_QUEUE);
+    Worker worker = factory.newWorker(Shared.EAGER_TASK_QUEUE);
     // Workflows are stateful. So you need a type to create instances.
     worker.registerWorkflowImplementationTypes(GreetingWorkflowImpl.class);
     // Activities are stateless and thread safe. So a shared instance is used.
@@ -69,39 +69,46 @@ public class InitiateEagerHello {
 
     // Start a workflow execution. Usually this is done from another program.
     // Uses task queue from the GreetingWorkflow @WorkflowMethod annotation.
-    GreetingWorkflow greetingWorkflow =
-        client.newWorkflowStub(
-            GreetingWorkflow.class,
-            WorkflowOptions.newBuilder()
-                .setTaskQueue(Shared.HELLO_TASK_QUEUE)
-                .setWorkflowId("Eager-Greeting")
-                .setDisableEagerExecution(false)
-                .build());
+    long totalruntime = 0;
+    int max_attempts = 100;
+    for(int i = 0; i < max_attempts; i++) {
+        GreetingWorkflow greetingWorkflow =
+            client.newWorkflowStub(
+                GreetingWorkflow.class,
+                WorkflowOptions.newBuilder()
+                    .setTaskQueue(Shared.EAGER_TASK_QUEUE)
+                    .setWorkflowId("Eager-Greeting")
+                    .setDisableEagerExecution(false)
+                    .build());
 
-    
-    long starttime = System.currentTimeMillis();
-    String greeting = greetingWorkflow.getGreeting("Jerry");
-    long endtime = System.currentTimeMillis();
-    System.out.println(greeting);
-    
-    System.out.println("Eager runtime:" + (endtime - starttime) + " milliseconds");
+        
+        long starttime = System.currentTimeMillis();
+        String greeting = greetingWorkflow.getGreeting("Jerry");
+        long endtime = System.currentTimeMillis();
+        //System.out.println(greeting);
+        
+        //System.out.println("Eager runtime:" + (endtime - starttime) + " milliseconds");
+        totalruntime += endtime - starttime;
+    }
+    long averageruntime = totalruntime / max_attempts;
+    System.out.println("Average Eager runtime:" + averageruntime + " milliseconds");
     
     //WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
     // client that can be used to start and signal workflows
-    WorkflowClient nonEagerClient = TemporalClient.get();
-    IntroductionWorkflow introWorkflow =
-    nonEagerClient.newWorkflowStub(
-            IntroductionWorkflow.class,
-            WorkflowOptions.newBuilder()
-                .setTaskQueue(Shared.HELLO_TASK_QUEUE)
-                .setWorkflowId("Introduction")
-                .setDisableEagerExecution(true)
-                .build());
+    // WorkflowClient nonEagerClient = TemporalClient.get();
+    // IntroductionWorkflow introWorkflow =
+    // nonEagerClient.newWorkflowStub(
+    //         IntroductionWorkflow.class,
+    //         WorkflowOptions.newBuilder()
+    //             .setTaskQueue(Shared.NON_EAGER_TASK_QUEUE)
+    //             .setWorkflowId("Introduction")
+    //             .setDisableEagerExecution(true)
+    //             .build());
 
     
-    String introduction = introWorkflow.getIntroduction("Jerry", "hiking");
-    System.out.println(introduction);
-    System.out.println(System.currentTimeMillis());
+    // String introduction = introWorkflow.getIntroduction("Jerry", "hiking");
+    // System.out.println(introduction);
+    // System.out.println(System.currentTimeMillis());
     // Asynchronous execution. This process will exit after making this call.
     //WorkflowExecution iwe = WorkflowClient.start(introWorkflow::getIntroduction, "Dave", "raising chickens");
     //System.out.printf("\nWorkflowID: %s RunID: %s", iwe.getWorkflowId(), iwe.getRunId());

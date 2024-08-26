@@ -23,6 +23,8 @@ public class GreetingWorkflowImpl implements GreetingWorkflow {
     @Override
     public String getGreeting(String name) {
       // This is a blocking call that returns only after the activity has completed.
-      return activities.composeGreeting("Hello", name);
+      //return activities.composeGreeting("Hello", name);
+      String result = activities.composeGreeting("Hello", name);
+      return result;
     }
   }

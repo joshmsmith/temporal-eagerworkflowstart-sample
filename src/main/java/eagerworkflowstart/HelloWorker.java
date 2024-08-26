@@ -13,7 +13,7 @@ public class HelloWorker {
         //WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
         WorkerFactory factory = WorkerFactory.newInstance(TemporalClient.get());
         // Worker factory is used to create Workers that poll specific Task Queues.
-        Worker worker = factory.newWorker(Shared.HELLO_TASK_QUEUE);
+        Worker worker = factory.newWorker(Shared.NON_EAGER_TASK_QUEUE);
         
         
         // This Worker hosts both Workflow and Activity implementations.

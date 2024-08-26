@@ -1,4 +1,4 @@
-package moneytransferapp;
+package eagerworkflowstart;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -19,7 +19,7 @@ import eagerworkflowstart.IntroductionWorkflow;
 import eagerworkflowstart.IntroductionWorkflowImpl;
 import eagerworkflowstart.Shared;
 
-public class MoneyTransferWorkflowTest {
+public class EagerWorkflowTest {
 
     private TestWorkflowEnvironment testEnv;
     private Worker worker;
@@ -28,7 +28,7 @@ public class MoneyTransferWorkflowTest {
     @Before
     public void setUp() {
         testEnv = TestWorkflowEnvironment.newInstance();
-        worker = testEnv.newWorker(Shared.HELLO_TASK_QUEUE);
+        worker = testEnv.newWorker(Shared.EAGER_TASK_QUEUE);
         worker.registerWorkflowImplementationTypes(IntroductionWorkflowImpl.class);
         workflowClient = testEnv.getWorkflowClient();
     }
@@ -44,7 +44,7 @@ public class MoneyTransferWorkflowTest {
         worker.registerActivitiesImplementations(activities);
         testEnv.start();
         WorkflowOptions options = WorkflowOptions.newBuilder()
-                .setTaskQueue(Shared.HELLO_TASK_QUEUE)
+                .setTaskQueue(Shared.EAGER_TASK_QUEUE)
                 .build();
         IntroductionWorkflow workflow = workflowClient.newWorkflowStub(IntroductionWorkflowImpl.class, options);
         workflow.getIntroduction("Bob", "fooseball");
